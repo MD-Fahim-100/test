@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ephemeral Chat</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Mobile toggle -->
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+            <i class="fas fa-bars" aria-hidden="true"></i>
+        </button>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar" aria-label="Rooms">
+            <div class="sidebar-header">
+                <div class="app-logo" aria-hidden="true">
+                    <div class="logo-icon"><i class="fas fa-lock"></i></div>
+                    <h1 class="app-title">Ephemeral</h1>
+                </div>
+
+                <div class="search-bar" role="search">
+                    <i class="fas fa-search search-icon" aria-hidden="true"></i>
+                    <input id="searchInput" class="search-input" type="search" placeholder="Search rooms..."
+                        aria-label="Search rooms" />
+                </div>
+            </div>
+
+            <!-- Rooms -->
+            <div class="rooms-container" id="roomsContainer" role="list">
+                <div class="room-item active" data-room="general" role="listitem" tabindex="0">
+                    <div class="room-avatar"><i class="fas fa-comment" aria-hidden="true"></i></div>
+                    <div class="room-info">
+                        <div class="room-name">General Chat</div>
+                        <div class="room-preview">Welcome to the chat!</div>
+                    </div>
+                </div>
+
+                <div class="room-item" data-room="tech" role="listitem" tabindex="0">
+                    <div class="room-avatar"><i class="fas fa-laptop-code" aria-hidden="true"></i></div>
+                    <div class="room-info">
+                        <div class="room-name">Tech Talk</div>
+                        <div class="room-preview">Discuss latest technology</div>
+                    </div>
+                </div>
+
+                <div class="room-item" data-room="random" role="listitem" tabindex="0">
+                    <div class="room-avatar"><i class="fas fa-dice" aria-hidden="true"></i></div>
+                    <div class="room-info">
+                        <div class="room-name">Random</div>
+                        <div class="room-preview">Anything goes here!</div>
+                    </div>
+                </div>
+
+                <div class="room-item" data-room="gaming" role="listitem" tabindex="0">
+                    <div class="room-avatar"><i class="fas fa-gamepad" aria-hidden="true"></i></div>
+                    <div class="room-info">
+                        <div class="room-name">Gaming Zone</div>
+                        <div class="room-preview">Let's play together!</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="create-room-btn" id="createRoomBtn" aria-label="Create new room">
+                <i class="fas fa-plus" aria-hidden="true"></i>
+                <span>Create New Room</span>
+            </button>
+
+            <div class="user-status" aria-live="polite">
+                <i class="fas fa-circle status-dot" aria-hidden="true"></i>
+                <span class="status-text">Online</span>
+            </div>
+        </aside>
+
+        <!-- Chat panel -->
+        <main class="chat-panel" id="chatPanel">
+            <header class="chat-header">
+                <div class="header-left">
+                    <h2 class="room-title" id="roomTitle">General Chat</h2>
+                    <div class="ttl-badge"><i class="fas fa-clock"></i> Expires in 30 minutes</div>
+                </div>
+
+                <div class="online-count" id="onlineCount" aria-live="polite">
+                    <i class="fas fa-user-friends" aria-hidden="true"></i> <span id="onlineNumber">12</span> online
+                </div>
+            </header>
+
+            <div id="messageFeed" class="message-feed" role="log" aria-live="polite" aria-relevant="additions"></div>
+
+            <div class="composer">
+                <div class="composer-container" role="form" aria-label="Message input">
+                    <textarea id="messageInput" class="composer-input" placeholder="Type your message..." rows="1"
+                        spellcheck="false" autocomplete="off"></textarea>
+
+                    <div class="composer-actions" role="group" aria-label="Composer actions">
+                        <button id="emojiBtn" class="composer-btn" aria-label="Open emoji picker">
+                            <i class="far fa-smile" aria-hidden="true"></i>
+                        </button>
+
+                        <button id="sendBtn" class="composer-btn send-btn" aria-label="Send message" disabled>
+                            <i class="fas fa-paper-plane" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="emojiPicker" class="emoji-picker" aria-hidden="true">
+                    <div class="emoji-picker-header">Select an emoji</div>
+                    <div id="emojiGrid" class="emoji-grid" role="list"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Socket.IO client (required before your script) -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- App script -->
+    <script src="/script.js" defer></script>
+</body>
+
+</html>
